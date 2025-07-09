@@ -4,7 +4,7 @@ function WelcomePage() {
   return (
     <div className="welcome-page">
         <header>
-            <h1>Vokabelbuch</h1>
+            <h1 className="vokabelbuch">Vokabelbuch</h1>
             <p>Your personal vocabulary book to learn and practice new words.</p>
         </header>
         <main>

@@ -1,0 +1,20 @@
+/* The industry standard: CSS Normalization */
+html, body {
+    margin: 0; /* removes default margin */
+    padding: 0; /* removes default padding */
+    box-sizing: border-box; /* sets box-sizing to border-box for all elements */
+}
+
+
+.welcome-page {
+    display: flex; /* turns container into flexbox */
+    /* justify-content: center;  centers children vertically */
+    flex-direction: column; /* stacks children vertically */
+    align-items: center; /* centers children horizontally */   
+    background-image: url('/backgrounds/davidcohen-R4VXMRFVcE4-unsplash.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh; /* ensures the page takes full height */
+    gap: 50px; 
+}
