@@ -31,6 +31,7 @@ header {
     color: white;
     cursor: pointer; 
     transition: 0.3s ease; 
+    text-decoration: none; /* removes underline from links */
 }
 
 .list-button:hover, .play-button:hover {

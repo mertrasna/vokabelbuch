@@ -1,4 +1,5 @@
 import './WelcomePage.css';
+import { Link } from 'react-router-dom';
 
 function WelcomePage() {
   return (
@@ -9,8 +10,8 @@ function WelcomePage() {
         </header>
         <main>
             <div className="button-container">
-                <button className="list-button">My List</button>
-                <button className="play-button">Play</button>
+                <Link to="/my-list" className="list-button">My List</Link> 
+                <Link to="/play" className="play-button">Play</Link>
             </div>    
         </main>
         <footer>
