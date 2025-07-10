@@ -3,18 +3,26 @@ html, body {
     margin: 0; /* removes default margin */
     padding: 0; /* removes default padding */
     box-sizing: border-box; /* sets box-sizing to border-box for all elements */
+    background: linear-gradient(
+    to bottom,
+    #1a1a1a 0%,   /* soft black */
+    #7b1e1e 35%,  /* deep wine red */
+    #f9a825 100%  /* warm golden yellow */
+  );
+    min-height: 100vh; /* ensures the body takes at least full viewport height */
 }
-
 
 .welcome-page {
     display: flex; /* turns container into flexbox */
     /* justify-content: center;  centers children vertically */
     flex-direction: column; /* stacks children vertically */
     align-items: center; /* centers children horizontally */   
-    background-image: url('/backgrounds/davidcohen-R4VXMRFVcE4-unsplash.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    min-height: 100vh; /* ensures the page takes full height */
+    gap: 50px; 
+}
+
+.landing-page {
+    display: flex; 
+    flex-direction: column;
+    align-items: center; 
     gap: 50px; 
 }

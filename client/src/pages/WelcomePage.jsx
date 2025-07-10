@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 function WelcomePage() {
   return (
     <div className="welcome-page">
-        <header>
+        <header className='welcome-header'>
             <h1 className="vokabelbuch">Vokabelbuch</h1>
             <p>Your personal vocabulary book to learn and practice new words.</p>
         </header>
