@@ -1,0 +1,56 @@
+.register-header {
+    font-size: 2rem; /* sets font size for the header */
+    color: white; /* sets text color to white */
+    margin-bottom: 20px; /* adds space below the header */
+}
+
+.register-h1 {
+    text-align: center;
+}
+
+.register-card {
+    background-color: rgba(0, 0, 0, 0.7); /* semi-transparent black background */
+    padding: 2rem; /* adds padding inside the card */
+    border-radius: 10px; /* rounds the corners of the card */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* adds shadow for depth */
+    width: 600px; /* sets a fixed width for the card */
+    height: 600px; /* sets a fixed height for the card */
+}
+
+.register-form {
+    display: flex; 
+    flex-direction: column;
+    align-items: center; 
+    gap: 20px; 
+}
+
+.register-username, .register-password, .register-email, .register-confirm-password {
+    width: 100%; 
+    padding: 15px; 
+    font-size: 1.2rem; 
+    border-radius: 5px; 
+    border: none; 
+    background-color: #f0f0f0; 
+}
+
+.register-button {
+    
+    padding: 15px 30px; 
+    font-size: 1.2rem; 
+    border-radius: 5px; 
+    background-color: black; 
+    border: none; 
+    color: white; 
+    cursor: pointer; 
+    transition: 0.3s ease; 
+}
+
+.register-button:hover {
+    background-color: #c62828; 
+}
+
+.success-message {
+  color: #33cc66;
+  text-align: center;
+  margin-top: 1rem;
+}

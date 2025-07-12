@@ -1,0 +1,67 @@
+.landing-header {
+    color: white;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-top: 200px;
+}
+
+.landing-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.landing-card {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    width: 600px;
+    height: 600px;
+    margin-top: 250px; /* moves card down by 50px */
+
+}
+
+.email, .password {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    border: none;
+    background-color: #f0f0f0;
+}
+
+.landing-checkout {
+    display: flex;
+    gap: 20px; /* adds 20px space between login and signup buttons */
+}
+
+.login-button {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    background-color: black;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.signup-link {
+    text-decoration: none;
+    color: white;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    background-color: black;
+    transition: 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: #c62828;
+}
+
+.signup-link:hover {
+    background-color: #fdd835;
+}
