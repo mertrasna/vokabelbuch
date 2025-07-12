@@ -37,7 +37,7 @@
     gap: 20px; /* adds 20px space between login and signup buttons */
 }
 
-.login-button, .signup-button {
+.login-button {
     padding: 15px 30px;
     font-size: 1.2rem;
     border-radius: 5px;
@@ -48,10 +48,20 @@
     transition: 0.3s ease;
 }
 
+.signup-link {
+    text-decoration: none;
+    color: white;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    background-color: black;
+    transition: 0.3s ease;
+}
+
 .login-button:hover {
     background-color: #c62828;
 }
 
-.signup-button:hover {
+.signup-link:hover {
     background-color: #fdd835;
 }

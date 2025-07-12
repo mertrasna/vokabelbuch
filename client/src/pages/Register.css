@@ -1,0 +1,49 @@
+.register-header {
+    font-size: 2rem; /* sets font size for the header */
+    color: white; /* sets text color to white */
+    margin-bottom: 20px; /* adds space below the header */
+}
+
+.register-h1 {
+    text-align: center;
+}
+
+.register-card {
+    background-color: rgba(0, 0, 0, 0.7); /* semi-transparent black background */
+    padding: 2rem; /* adds padding inside the card */
+    border-radius: 10px; /* rounds the corners of the card */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* adds shadow for depth */
+    width: 600px; /* sets a fixed width for the card */
+    height: 600px; /* sets a fixed height for the card */
+}
+
+.register-form {
+    display: flex; /* uses flexbox for layout */
+    flex-direction: column; /* stacks children vertically */
+    align-items: center; /* centers children horizontally */
+    gap: 20px; /* adds space between form elements */
+}
+
+.register-username, .register-password, .register-email, .register-confirm-password {
+    width: 100%; /* makes input fields take full width */
+    padding: 15px; /* adds padding inside input fields */
+    font-size: 1.2rem; /* sets font size for input text */
+    border-radius: 5px; /* rounds the corners of input fields */
+    border: none; /* removes default border */
+    background-color: #f0f0f0; /* light gray background for input fields */
+}
+
+.register-button {
+    padding: 15px 30px; /* adds padding around the button */
+    font-size: 1.2rem; /* sets font size for button text */
+    border-radius: 5px; /* rounds the corners of the button */
+    background-color: black; /* sets button background color to black */
+    border: none; /* removes default border */
+    color: white; /* sets button text color to white */
+    cursor: pointer; /* changes cursor to pointer on hover */
+    transition: 0.3s ease; /* smooth transition for hover effects */
+}
+
+.register-button:hover {
+    background-color: #c62828; /* changes button color on hover */
+}

@@ -13,7 +13,7 @@ function LandingPage() {
                 <input className='password' type="password" placeholder='password' />
                <div className='landing-checkout'> 
                 <button className="login-button">LOG IN</button>
-                <button className='signup-button'>SIGN UP</button>
+                <Link to="/register" className="signup-link">SIGN UP</Link>
                </div> 
             </div>
           </div>    
