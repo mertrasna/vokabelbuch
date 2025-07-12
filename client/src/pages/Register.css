@@ -34,6 +34,7 @@
 }
 
 .register-button {
+    
     padding: 15px 30px; 
     font-size: 1.2rem; 
     border-radius: 5px; 
@@ -46,4 +47,10 @@
 
 .register-button:hover {
     background-color: #c62828; 
+}
+
+.success-message {
+  color: #33cc66;
+  text-align: center;
+  margin-top: 1rem;
 }
