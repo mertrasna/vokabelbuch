@@ -9,7 +9,7 @@ function RegisterPage() {
                 <p className='register-p'>Create a new account to start using Vokabelbuch.</p>
             </header>
             <div className='register-form'>
-                <input className='register-email' type="email" placeholder='email' />
+                <input className='register-email' type="email" placeholder='you@example.com' required autoComplete='email'  />
                 <input className='register-username' type="text" placeholder='username' />    
                 <input className='register-password' type="password" placeholder='password' />
                 <input className='register-confirm-password' type="password" placeholder='confirm password' />
