@@ -40,6 +40,27 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* shadow effect */
 }
 
+.user-info {
+  color: #f9a825;
+  font-size: 1.1rem;
+  margin: 10px 0;
+}
+
+.logout-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  background-color: #c62828;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.3s;
+}
+.logout-button:hover {
+  background-color: #7b1e1e;
+}
+
 
 footer {
     position: fixed;
@@ -67,6 +88,14 @@ footer {
     position: static;
     margin-top: 20px;
     text-align: center;
+  }
+  .logout-button {
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px 0;
+  }
+  .user-info {
+    font-size: 1rem;
   }
 }
 

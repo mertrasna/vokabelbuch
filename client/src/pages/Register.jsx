@@ -1,10 +1,9 @@
 import './Register.css';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import { registerUser } from '../services/authService'; 
+import { useState, useEffect } from 'react';
+import { useAuth } from '../AuthContext.jsx';
 
 function RegisterPage() {
-
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -12,6 +11,13 @@ function RegisterPage() {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const navigate = useNavigate();
+    const { user, register } = useAuth();
+
+    useEffect(() => {
+        if (user) {
+            navigate('/welcome');
+        }
+    }, [user, navigate]);
 
     const handleRegister = async () => {
         setError('');
@@ -28,12 +34,9 @@ function RegisterPage() {
         }
 
         try {
-            await registerUser(email, username, password);
-            setSuccess('Account created! Redirecting to login...');
-            
-            setTimeout(() => {
-                navigate('/'); // Redirect to landing page after successful registration
-            }, 2000);
+            await register(email, username, password);
+            setSuccess('Account created! Redirecting to your dashboard...');
+            // navigation will happen in useEffect
         } catch (err) {
             setError('Registration failed: ' + err.message);
         }
