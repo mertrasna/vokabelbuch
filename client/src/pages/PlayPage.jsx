@@ -13,14 +13,8 @@ function PlayPage() {
     const [showResult, setShowResult] = useState(false);
     const [quizCompleted, setQuizCompleted] = useState(false);
     const [quizResults, setQuizResults] = useState(null);
-    const [startTime, setStartTime] = useState(null);
-    const [currentSpeed, setCurrentSpeed] = useState(0);
-    const [accuracy, setAccuracy] = useState(100);
-    const [totalTyped, setTotalTyped] = useState(0);
-    const [correctChars, setCorrectChars] = useState(0);
     
     const inputRef = useRef(null);
-    const intervalRef = useRef(null);
 
     const startNewQuiz = async () => {
         try {
@@ -30,11 +24,6 @@ function PlayPage() {
             setQuizResults(null);
             setUserAnswer('');
             setShowResult(false);
-            setStartTime(null);
-            setCurrentSpeed(0);
-            setAccuracy(100);
-            setTotalTyped(0);
-            setCorrectChars(0);
             
             const newQuiz = await generateQuiz(user.uid, 10);
             setQuiz(newQuiz);
@@ -45,36 +34,6 @@ function PlayPage() {
         }
     };
 
-    const startTimer = () => {
-        if (!startTime) {
-            setStartTime(Date.now());
-            intervalRef.current = setInterval(updateSpeed, 100);
-        }
-    };
-
-    const updateSpeed = () => {
-        if (startTime && totalTyped > 0) {
-            const elapsed = (Date.now() - startTime) / 1000; // seconds
-            const wpm = Math.round((totalTyped / 5) / (elapsed / 60)); // words per minute (5 chars = 1 word)
-            setCurrentSpeed(wpm);
-        }
-    };
-
-    const calculateAccuracy = (input, target) => {
-        if (!target) return 100;
-        
-        let correct = 0;
-        const minLength = Math.min(input.length, target.length);
-        
-        for (let i = 0; i < minLength; i++) {
-            if (input[i].toLowerCase() === target[i].toLowerCase()) {
-                correct++;
-            }
-        }
-        
-        return Math.round((correct / Math.max(input.length, target.length)) * 100);
-    };
-
     const handleInputChange = (e) => {
         const value = e.target.value;
         const currentQuestion = quiz?.questions[quiz.currentQuestion];
@@ -82,26 +41,6 @@ function PlayPage() {
         if (!currentQuestion) return;
 
         setUserAnswer(value);
-        setTotalTyped(value.length);
-        
-        // Calculate accuracy in real-time
-        const currentAccuracy = calculateAccuracy(value, currentQuestion.correctAnswer);
-        setAccuracy(currentAccuracy);
-        
-        // Count correct characters
-        let correct = 0;
-        const minLength = Math.min(value.length, currentQuestion.correctAnswer.length);
-        for (let i = 0; i < minLength; i++) {
-            if (value[i].toLowerCase() === currentQuestion.correctAnswer[i].toLowerCase()) {
-                correct++;
-            }
-        }
-        setCorrectChars(correct);
-        
-        // Start timer on first character
-        if (value.length === 1 && !startTime) {
-            startTimer();
-        }
 
         // Auto-submit when answer is complete
         if (value.length >= currentQuestion.correctAnswer.length) {
@@ -120,10 +59,7 @@ function PlayPage() {
         updatedQuestions[quiz.currentQuestion] = {
             ...currentQuestion,
             userAnswer: finalAnswer,
-            isCorrect: isCorrect,
-            speed: currentSpeed,
-            accuracy: accuracy,
-            timeSpent: startTime ? (Date.now() - startTime) / 1000 : 0
+            isCorrect: isCorrect
         };
 
         const updatedQuiz = {
@@ -136,11 +72,6 @@ function PlayPage() {
         setUserAnswer('');
         setShowResult(true);
         setError('');
-
-        // Clear timer
-        if (intervalRef.current) {
-            clearInterval(intervalRef.current);
-        }
 
         // Auto-advance to next question after 1.5 seconds
         setTimeout(() => {
@@ -167,11 +98,6 @@ function PlayPage() {
             setUserAnswer('');
             setShowResult(false);
             setError('');
-            setStartTime(null);
-            setCurrentSpeed(0);
-            setAccuracy(100);
-            setTotalTyped(0);
-            setCorrectChars(0);
             
             // Focus on input for next question
             setTimeout(() => inputRef.current?.focus(), 100);
@@ -185,32 +111,13 @@ function PlayPage() {
                 completed: true
             };
             
-            // Calculate overall stats
-            const totalTime = finalQuiz.questions.reduce((sum, q) => sum + (q.timeSpent || 0), 0);
-            const avgSpeed = finalQuiz.questions.reduce((sum, q) => sum + (q.speed || 0), 0) / finalQuiz.questions.length;
-            const avgAccuracy = finalQuiz.questions.reduce((sum, q) => sum + (q.accuracy || 100), 0) / finalQuiz.questions.length;
-            
             const results = await saveQuizResults(user.uid, completedQuiz);
-            setQuizResults({
-                ...results,
-                totalTime,
-                avgSpeed: Math.round(avgSpeed),
-                avgAccuracy: Math.round(avgAccuracy)
-            });
+            setQuizResults(results);
             setQuizCompleted(true);
         } catch (err) {
             setError('Failed to save quiz results: ' + err.message);
         }
     };
-
-    // Cleanup timer on unmount
-    useEffect(() => {
-        return () => {
-            if (intervalRef.current) {
-                clearInterval(intervalRef.current);
-            }
-        };
-    }, []);
 
     if (loading) {
         return (
@@ -239,27 +146,12 @@ function PlayPage() {
                 <h1>Quiz Complete!</h1>
                 <div className="results-container">
                     <div className="score-display">
-                        <h2>Your Performance</h2>
+                        <h2>Your Score</h2>
                         <div className="score-circle">
                             <span className="score-number">{quizResults.score}</span>
                             <span className="score-total">/ {quizResults.totalQuestions}</span>
                         </div>
                         <p className="score-percentage">{quizResults.percentage}%</p>
-                    </div>
-                    
-                    <div className="stats-grid">
-                        <div className="stat-item">
-                            <span className="stat-label">Average Speed</span>
-                            <span className="stat-value">{quizResults.avgSpeed} WPM</span>
-                        </div>
-                        <div className="stat-item">
-                            <span className="stat-label">Average Accuracy</span>
-                            <span className="stat-value">{quizResults.avgAccuracy}%</span>
-                        </div>
-                        <div className="stat-item">
-                            <span className="stat-label">Total Time</span>
-                            <span className="stat-value">{Math.round(quizResults.totalTime)}s</span>
-                        </div>
                     </div>
 
                     <div className="question-review">
@@ -274,11 +166,6 @@ function PlayPage() {
                                     {!question.isCorrect && (
                                         <span className="user-answer">Your answer: {question.userAnswer}</span>
                                     )}
-                                </div>
-                                <div className="review-stats">
-                                    <span className="speed-stat">{question.speed || 0} WPM</span>
-                                    <span className="accuracy-stat">{question.accuracy || 100}% accuracy</span>
-                                    <span className="time-stat">{Math.round(question.timeSpent || 0)}s</span>
                                 </div>
                             </div>
                         ))}
@@ -321,20 +208,9 @@ function PlayPage() {
                 </p>
             </div>
 
-            {/* Live Stats */}
-            <div className="live-stats">
-                <div className="stat">
-                    <span className="stat-label">Speed</span>
-                    <span className="stat-value">{currentSpeed} WPM</span>
-                </div>
-                <div className="stat">
-                    <span className="stat-label">Accuracy</span>
-                    <span className="stat-value">{accuracy}%</span>
-                </div>
-                <div className="stat">
-                    <span className="stat-label">Score</span>
-                    <span className="stat-value">{quiz.score}/{quiz.totalQuestions}</span>
-                </div>
+            {/* Score Display */}
+            <div className="score-display">
+                <p>Score: {quiz.score} / {quiz.totalQuestions}</p>
             </div>
 
             {/* Question */}
@@ -380,11 +256,6 @@ function PlayPage() {
             {showResult && (
                 <div className={`result-display ${currentQuestion.isCorrect ? 'correct' : 'incorrect'}`}>
                     <h3>{currentQuestion.isCorrect ? 'Perfect!' : 'Incorrect!'}</h3>
-                    <div className="result-stats">
-                        <span>Speed: {currentQuestion.speed || 0} WPM</span>
-                        <span>Accuracy: {currentQuestion.accuracy || 100}%</span>
-                        <span>Time: {Math.round(currentQuestion.timeSpent || 0)}s</span>
-                    </div>
                     <p className="next-indicator">
                         {quiz.currentQuestion < quiz.totalQuestions - 1 ? 'Next question...' : 'Quiz complete!'}
                     </p>
