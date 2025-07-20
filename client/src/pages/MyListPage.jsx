@@ -41,7 +41,10 @@ function MyListPage() {
 
     const handleAddWord = async (e) => {
         e.preventDefault();
-        if (!germanWord.trim() || !englishWord.trim()) {
+        const trimmedGerman = germanWord.trim();
+        const trimmedEnglish = englishWord.trim();
+        
+        if (!trimmedGerman || !trimmedEnglish) {
             setError('Please fill in both German and English words');
             return;
         }
@@ -49,7 +52,7 @@ function MyListPage() {
         try {
             setIsAdding(true);
             setError('');
-            await addWord(user.uid, germanWord, englishWord);
+            await addWord(user.uid, trimmedGerman, trimmedEnglish);
             setGermanWord('');
             setEnglishWord('');
             setSuccess('Word added successfully!');
@@ -63,14 +66,17 @@ function MyListPage() {
     };
 
     const handleEditWord = async (wordId) => {
-        if (!editGerman.trim() || !editEnglish.trim()) {
+        const trimmedGerman = editGerman.trim();
+        const trimmedEnglish = editEnglish.trim();
+        
+        if (!trimmedGerman || !trimmedEnglish) {
             setError('Please fill in both German and English words');
             return;
         }
 
         try {
             setError('');
-            await updateWord(user.uid, wordId, editGerman, editEnglish);
+            await updateWord(user.uid, wordId, trimmedGerman, trimmedEnglish);
             setEditingId(null);
             setEditGerman('');
             setEditEnglish('');
@@ -133,6 +139,7 @@ function MyListPage() {
                         onChange={(e) => setGermanWord(e.target.value)}
                         className="word-input"
                         disabled={isAdding}
+                        onBlur={(e) => setGermanWord(e.target.value.trim())}
                     />
                     <input
                         type="text"
@@ -141,6 +148,7 @@ function MyListPage() {
                         onChange={(e) => setEnglishWord(e.target.value)}
                         className="word-input"
                         disabled={isAdding}
+                        onBlur={(e) => setEnglishWord(e.target.value.trim())}
                     />
                     <button type="submit" className="add-button" disabled={isAdding}>
                         {isAdding ? 'Adding...' : 'Add Word'}
@@ -169,12 +177,14 @@ function MyListPage() {
                                             value={editGerman}
                                             onChange={(e) => setEditGerman(e.target.value)}
                                             className="edit-input"
+                                            onBlur={(e) => setEditGerman(e.target.value.trim())}
                                         />
                                         <input
                                             type="text"
                                             value={editEnglish}
                                             onChange={(e) => setEditEnglish(e.target.value)}
                                             className="edit-input"
+                                            onBlur={(e) => setEditEnglish(e.target.value.trim())}
                                         />
                                         <button 
                                             onClick={() => handleEditWord(word.id)}
