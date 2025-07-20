@@ -16,13 +16,12 @@ function WelcomePage() {
         <header className='welcome-header'>
             <h1 className="vokabelbuch">Vokabelbuch</h1>
             <p>Your personal vocabulary book to learn and practice new words.</p>
-            {user && <p className="user-info">Logged in as: {user.email}</p>}
-            <button className="logout-button" onClick={handleLogout}>Log Out</button>
         </header>
         <main>
             <div className="button-container">
                 <Link to="/my-list" className="list-button">My List</Link> 
                 <Link to="/play" className="play-button">Play</Link>
+                <button className="logout-button" onClick={handleLogout}>Log Out</button>
             </div>    
         </main>
         <footer>

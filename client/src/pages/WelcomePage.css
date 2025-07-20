@@ -22,7 +22,7 @@
     filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
 }
 
-.list-button, .play-button {
+.list-button, .play-button, .logout-button {
     padding: 20px 40px; /* space inside the button */
     font-size: 1.5rem; 
     border-radius: 8px; /* rounded corners */
@@ -34,31 +34,17 @@
     text-decoration: none; /* removes underline from links */
 }
 
-.list-button:hover, .play-button:hover {
+.list-button:hover, .play-button:hover, .logout-button:hover {
     background-color: #333; /* darker background on hover */
     transform: translateY(-5px); /* slight lift effect */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* shadow effect */
 }
 
-.user-info {
-  color: #f9a825;
-  font-size: 1.1rem;
-  margin: 10px 0;
-}
-
 .logout-button {
-  padding: 10px 20px;
-  font-size: 1rem;
-  border-radius: 5px;
-  background-color: #c62828;
-  color: white;
-  border: none;
-  cursor: pointer;
-  margin-top: 10px;
-  transition: background 0.3s;
+    background-color: #c62828;
 }
 .logout-button:hover {
-  background-color: #7b1e1e;
+    background-color: #7b1e1e;
 }
 
 
@@ -93,9 +79,6 @@ footer {
     width: 100%;
     font-size: 1rem;
     padding: 10px 0;
-  }
-  .user-info {
-    font-size: 1rem;
   }
 }
 
