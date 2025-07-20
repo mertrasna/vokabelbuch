@@ -224,20 +224,20 @@ function PlayPage() {
                 </div>
             </div>
 
-            {/* Answer Input */}
+            {/* Invisible Input with Character Feedback */}
             {!showResult && (
-                <div className="answer-container">
+                <div className="typing-container">
                     <input
                         ref={inputRef}
                         type="text"
                         value={userAnswer}
                         onChange={handleInputChange}
                         placeholder="Start typing..."
-                        className="answer-input"
+                        className="invisible-input"
                         onKeyPress={handleKeyPress}
                         autoFocus
                     />
-                    <div className="answer-preview">
+                    <div className="character-display">
                         {currentQuestion.correctAnswer.split('').map((char, index) => (
                             <span
                                 key={index}
@@ -245,7 +245,7 @@ function PlayPage() {
                                     (userAnswer[index].toLowerCase() === char.toLowerCase() ? 'correct' : 'incorrect') : 
                                     'pending'}`}
                             >
-                                {char}
+                                {index < userAnswer.length ? userAnswer[index] : char}
                             </span>
                         ))}
                     </div>
