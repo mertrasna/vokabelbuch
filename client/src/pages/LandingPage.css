@@ -66,3 +66,28 @@
 .signup-link:hover {
     background-color: #fdd835;
 }
+
+@media (max-width: 600px) {
+  .landing-header {
+    font-size: 1.5rem;
+    margin-top: 60px;
+  }
+  .landing-card {
+    padding: 1rem;
+    max-width: 98vw;
+    margin: 1rem auto;
+  }
+  .email, .password {
+    font-size: 1rem;
+    padding: 10px;
+  }
+  .login-button, .signup-link {
+    font-size: 1rem;
+    padding: 10px 15px;
+  }
+  .landing-checkout {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+}

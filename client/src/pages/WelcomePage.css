@@ -48,3 +48,25 @@ footer {
     font-size: 1.5rem;
 }
 
+@media (max-width: 600px) {
+  .welcome-header {
+    font-size: 1.2rem;
+  }
+  .vokabelbuch {
+    font-size: 2rem;
+  }
+  .button-container {
+    gap: 15px;
+  }
+  .list-button, .play-button {
+    font-size: 1rem;
+    padding: 12px 10px;
+  }
+  footer {
+    font-size: 1rem;
+    position: static;
+    margin-top: 20px;
+    text-align: center;
+  }
+}
+

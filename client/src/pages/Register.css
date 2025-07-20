@@ -56,3 +56,25 @@
   text-align: center;
   margin-top: 1rem;
 }
+
+@media (max-width: 600px) {
+  .register-header {
+    font-size: 1.2rem;
+  }
+  .register-card {
+    padding: 1rem;
+    max-width: 98vw;
+    margin: 1rem auto;
+  }
+  .register-form {
+    gap: 10px;
+  }
+  .register-username, .register-password, .register-email, .register-confirm-password {
+    font-size: 1rem;
+    padding: 10px;
+  }
+  .register-button {
+    font-size: 1rem;
+    padding: 10px 15px;
+  }
+}

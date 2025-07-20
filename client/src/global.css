@@ -33,3 +33,13 @@ html, body {
     align-items: center;
     gap: 50px; 
 }
+
+@media (max-width: 600px) {
+  html, body {
+    font-size: 15px;
+    padding: 0;
+  }
+  .welcome-page, .landing-page, .register-page {
+    gap: 20px;
+  }
+}

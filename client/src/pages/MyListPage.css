@@ -1,0 +1,8 @@
+@media (max-width: 600px) {
+  .my-list-page {
+    padding: 1rem;
+  }
+  .my-list-page h1 {
+    font-size: 1.5rem;
+  }
+}

@@ -1,0 +1,8 @@
+@media (max-width: 600px) {
+  .play-page {
+    padding: 1rem;
+  }
+  .play-page h1 {
+    font-size: 1.5rem;
+  }
+}
