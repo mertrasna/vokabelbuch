@@ -131,7 +131,7 @@ function MyListPage() {
             
             {/* Navigation Buttons */}
             <div className="navigation-section">
-                <Link to="/welcome" className="home-button">
+                <Link to="/welcome" className="home-button" style={{border: '2px solid red'}}>
                     🏠 Home
                 </Link>
                 <Link to="/play" className="play-button">
