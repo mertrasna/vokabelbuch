@@ -54,6 +54,13 @@ function PlayPage() {
     const handleAnswerComplete = (finalAnswer, isCorrect) => {
         const currentQuestion = quiz.questions[quiz.currentQuestion];
         
+        console.log('Submitting answer:', {
+            question: currentQuestion.question,
+            correctAnswer: currentQuestion.correctAnswer,
+            userAnswer: finalAnswer,
+            isCorrect: isCorrect
+        });
+        
         // Update the current question with user's answer
         const updatedQuestions = [...quiz.questions];
         updatedQuestions[quiz.currentQuestion] = {
@@ -67,6 +74,8 @@ function PlayPage() {
             questions: updatedQuestions,
             score: isCorrect ? quiz.score + 1 : quiz.score
         };
+
+        console.log('Updated quiz state:', updatedQuiz);
 
         setQuiz(updatedQuiz);
         setUserAnswer('');
@@ -106,12 +115,15 @@ function PlayPage() {
 
     const completeQuiz = async (finalQuiz) => {
         try {
+            console.log('Completing quiz with data:', finalQuiz);
+            
             const completedQuiz = {
                 ...finalQuiz,
                 completed: true
             };
             
             const results = await saveQuizResults(user.uid, completedQuiz);
+            console.log('Quiz results saved:', results);
             setQuizResults(results);
             setQuizCompleted(true);
         } catch (err) {
@@ -163,9 +175,7 @@ function PlayPage() {
                                 </div>
                                 <div className="review-answers">
                                     <span className="correct-answer">Correct: {question.correctAnswer}</span>
-                                    {!question.isCorrect && (
-                                        <span className="user-answer">Your answer: {question.userAnswer}</span>
-                                    )}
+                                    <span className="user-answer">Your answer: {question.userAnswer || '(no answer)'}</span>
                                 </div>
                             </div>
                         ))}
