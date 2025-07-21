@@ -85,7 +85,19 @@ function PlayPage() {
         // Auto-advance to next question after 1.5 seconds
         setTimeout(() => {
             if (quiz.currentQuestion < quiz.totalQuestions - 1) {
-                nextQuestion();
+                // Use the updated quiz state for next question
+                setQuiz(prevQuiz => ({
+                    ...prevQuiz,
+                    currentQuestion: prevQuiz.currentQuestion + 1,
+                    questions: updatedQuestions,
+                    score: updatedQuiz.score
+                }));
+                setUserAnswer('');
+                setShowResult(false);
+                setError('');
+                
+                // Focus on input for next question
+                setTimeout(() => inputRef.current?.focus(), 100);
             } else {
                 completeQuiz(updatedQuiz);
             }
@@ -98,20 +110,7 @@ function PlayPage() {
         }
     };
 
-    const nextQuestion = () => {
-        if (quiz.currentQuestion < quiz.totalQuestions - 1) {
-            setQuiz({
-                ...quiz,
-                currentQuestion: quiz.currentQuestion + 1
-            });
-            setUserAnswer('');
-            setShowResult(false);
-            setError('');
-            
-            // Focus on input for next question
-            setTimeout(() => inputRef.current?.focus(), 100);
-        }
-    };
+
 
     const completeQuiz = async (finalQuiz) => {
         try {
