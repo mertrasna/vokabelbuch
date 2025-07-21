@@ -129,8 +129,11 @@ function MyListPage() {
         <div className="my-list-page">
             <h1>My Vocabulary List</h1>
             
-            {/* Navigation Button */}
+            {/* Navigation Buttons */}
             <div className="navigation-section">
+                <Link to="/welcome" className="home-button">
+                    🏠 Home
+                </Link>
                 <Link to="/play" className="play-button">
                     Start Quiz
                 </Link>

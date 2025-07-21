@@ -227,6 +227,30 @@
 .navigation-section {
     text-align: center;
     margin-bottom: 2rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.home-button {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+    box-shadow: 0 2px 8px rgba(33, 150, 243, 0.3);
+}
+
+.home-button:hover {
+    background-color: #1976D2;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(33, 150, 243, 0.4);
 }
 
 .play-button {
@@ -238,12 +262,15 @@
     border-radius: 8px;
     cursor: pointer;
     text-decoration: none;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
     display: inline-block;
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
 }
 
 .play-button:hover {
     background-color: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
 }
 
 /* Mobile Responsiveness */
