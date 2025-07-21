@@ -27,17 +27,32 @@
     font-size: 1.5rem; 
     border-radius: 8px; /* rounded corners */
     border: none; 
-    background-color: black;
-    color: white;
+    background-color: black !important;
+    color: white !important;
     cursor: pointer; 
     transition: 0.3s ease; 
     text-decoration: none; /* removes underline from links */
+    text-align: center;
+    display: inline-block;
+    width: auto;
+    min-width: 120px;
 }
 
 .list-button:hover, .play-button:hover, .logout-button:hover {
-    background-color: #333; /* darker background on hover */
+    background-color: #333 !important; /* darker background on hover */
     transform: translateY(-5px); /* slight lift effect */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* shadow effect */
+}
+
+/* Specific overrides for Play button */
+.play-button {
+    background-color: black !important;
+    color: white !important;
+    text-align: center !important;
+}
+
+.play-button:hover {
+    background-color: #333 !important;
 }
 
 
