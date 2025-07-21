@@ -1,43 +1,46 @@
 import './PlayPage.css';
-import { useState, useEffect, useRef } from 'react';
-import { useAuth } from '../AuthContext.jsx';
-import { generateQuiz, saveQuizResults } from '../services/quizService.js';
-import { validateAnswer, sanitizeAnswer, isEmptyAnswer } from '../utils/quizUtils.js';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../AuthContext';
+import { generateQuiz, saveQuizResults } from '../services/quizService';
+import { validateAnswer, isEmptyAnswer } from '../utils/quizUtils';
+import './PlayPage.css';
 
 function PlayPage() {
-    const { user } = useAuth();
+    const { user } = useContext(AuthContext);
     const [quiz, setQuiz] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
     const [userAnswer, setUserAnswer] = useState('');
     const [showResult, setShowResult] = useState(false);
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
     const [quizCompleted, setQuizCompleted] = useState(false);
     const [quizResults, setQuizResults] = useState(null);
-    
     const inputRef = useRef(null);
+    
+    // Use ref to track current quiz state for immediate access
+    const quizRef = useRef(null);
 
     const startNewQuiz = async () => {
+        setLoading(true);
+        setError('');
+        setQuizCompleted(false);
+        setQuizResults(null);
+        
         try {
-            setLoading(true);
-            setError('');
-            setQuizCompleted(false);
-            setQuizResults(null);
-            setUserAnswer('');
-            setShowResult(false);
-            
-            const newQuiz = await generateQuiz(user.uid, 10);
+            const newQuiz = await generateQuiz(user.uid, 4);
             setQuiz(newQuiz);
+            quizRef.current = newQuiz; // Initialize ref
+            setLoading(false);
         } catch (err) {
             setError(err.message);
-        } finally {
             setLoading(false);
         }
     };
 
     const handleInputChange = (e) => {
         const value = e.target.value;
-        const currentQuestion = quiz?.questions[quiz.currentQuestion];
+        const currentQuiz = quizRef.current;
+        const currentQuestion = currentQuiz?.questions[currentQuiz.currentQuestion];
         
         if (!currentQuestion) return;
 
@@ -52,46 +55,55 @@ function PlayPage() {
     };
 
     const handleAnswerComplete = (finalAnswer, isCorrect) => {
-        const currentQuestion = quiz.questions[quiz.currentQuestion];
+        // Get current quiz state from ref for immediate access
+        const currentQuiz = quizRef.current;
+        const currentQuestion = currentQuiz.questions[currentQuiz.currentQuestion];
         
         console.log('Submitting answer:', {
             question: currentQuestion.question,
             correctAnswer: currentQuestion.correctAnswer,
             userAnswer: finalAnswer,
-            isCorrect: isCorrect
+            isCorrect: isCorrect,
+            currentScore: currentQuiz.score
         });
         
         // Update the current question with user's answer
-        const updatedQuestions = [...quiz.questions];
-        updatedQuestions[quiz.currentQuestion] = {
+        const updatedQuestions = [...currentQuiz.questions];
+        updatedQuestions[currentQuiz.currentQuestion] = {
             ...currentQuestion,
             userAnswer: finalAnswer,
             isCorrect: isCorrect
         };
 
+        // Calculate new score
+        const newScore = isCorrect ? currentQuiz.score + 1 : currentQuiz.score;
+
         const updatedQuiz = {
-            ...quiz,
+            ...currentQuiz,
             questions: updatedQuestions,
-            score: isCorrect ? quiz.score + 1 : quiz.score
+            score: newScore
         };
 
         console.log('Updated quiz state:', updatedQuiz);
 
+        // Update both state and ref
         setQuiz(updatedQuiz);
+        quizRef.current = updatedQuiz;
+        
         setUserAnswer('');
         setShowResult(true);
         setError('');
 
         // Auto-advance to next question after 1.5 seconds
         setTimeout(() => {
-            if (quiz.currentQuestion < quiz.totalQuestions - 1) {
-                // Use the updated quiz state for next question
-                setQuiz(prevQuiz => ({
-                    ...prevQuiz,
-                    currentQuestion: prevQuiz.currentQuestion + 1,
-                    questions: updatedQuestions,
-                    score: updatedQuiz.score
-                }));
+            if (currentQuiz.currentQuestion < currentQuiz.totalQuestions - 1) {
+                // Move to next question
+                const nextQuiz = {
+                    ...updatedQuiz,
+                    currentQuestion: updatedQuiz.currentQuestion + 1
+                };
+                setQuiz(nextQuiz);
+                quizRef.current = nextQuiz;
                 setUserAnswer('');
                 setShowResult(false);
                 setError('');
@@ -106,7 +118,11 @@ function PlayPage() {
 
     const handleKeyPress = (e) => {
         if (e.key === 'Enter' && !showResult && !isEmptyAnswer(userAnswer)) {
-            handleAnswerComplete(userAnswer, validateAnswer(userAnswer, quiz.questions[quiz.currentQuestion].correctAnswer));
+            const currentQuiz = quizRef.current;
+            const currentQuestion = currentQuiz?.questions[currentQuiz.currentQuestion];
+            if (currentQuestion) {
+                handleAnswerComplete(userAnswer, validateAnswer(userAnswer, currentQuestion.correctAnswer));
+            }
         }
     };
 
