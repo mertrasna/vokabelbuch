@@ -43,12 +43,11 @@ function PlayPage() {
 
         setUserAnswer(value);
 
-        // Auto-submit when answer is complete
+        // Auto-submit when answer length matches target length
         if (value.length >= currentQuestion.correctAnswer.length) {
             const isCorrect = validateAnswer(value, currentQuestion.correctAnswer);
-            if (isCorrect) {
-                setTimeout(() => handleAnswerComplete(value, isCorrect), 100);
-            }
+            // Always submit when length matches, regardless of correctness
+            setTimeout(() => handleAnswerComplete(value, isCorrect), 100);
         }
     };
 
@@ -255,6 +254,14 @@ function PlayPage() {
                             </span>
                         ))}
                     </div>
+                    {userAnswer.length > 0 && (
+                        <button 
+                            onClick={() => handleAnswerComplete(userAnswer, validateAnswer(userAnswer, currentQuestion.correctAnswer))}
+                            className="submit-answer-button"
+                        >
+                            Submit Answer
+                        </button>
+                    )}
                 </div>
             )}
 
