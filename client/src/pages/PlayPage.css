@@ -163,9 +163,10 @@
 }
 
 .char.pending {
-    color: #666;
+    color: #444;
     background-color: rgba(255, 255, 255, 0.05);
-    border-bottom: 2px solid #444;
+    border-bottom: 2px solid #666;
+    opacity: 0.5;
 }
 
 .char.current {

@@ -245,7 +245,7 @@ function PlayPage() {
                                     (userAnswer[index].toLowerCase() === char.toLowerCase() ? 'correct' : 'incorrect') : 
                                     'pending'}`}
                             >
-                                {index < userAnswer.length ? userAnswer[index] : char}
+                                {index < userAnswer.length ? userAnswer[index] : '_'}
                             </span>
                         ))}
                     </div>
