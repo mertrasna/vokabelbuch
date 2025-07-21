@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../AuthContext.jsx';
 import { generateQuiz, saveQuizResults } from '../services/quizService.js';
 import { validateAnswer, sanitizeAnswer, isEmptyAnswer } from '../utils/quizUtils.js';
+import { Link } from 'react-router-dom';
 
 function PlayPage() {
     const { user } = useAuth();
@@ -172,9 +173,14 @@ function PlayPage() {
                     </div>
                 </div>
                 
-                <button onClick={startNewQuiz} className="new-quiz-button">
-                    Start New Quiz
-                </button>
+                <div className="action-buttons">
+                    <button onClick={startNewQuiz} className="new-quiz-button">
+                        Start New Quiz
+                    </button>
+                    <Link to="/my-list" className="go-back-button">
+                        Go to My List
+                    </Link>
+                </div>
             </div>
         );
     }

@@ -2,6 +2,7 @@ import './MyListPage.css';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../AuthContext.jsx';
 import { addWord, getUserWords, updateWord, deleteWord } from '../services/wordService.js';
+import { Link } from 'react-router-dom';
 
 function MyListPage() {
     const { user } = useAuth();
@@ -127,6 +128,13 @@ function MyListPage() {
     return (
         <div className="my-list-page">
             <h1>My Vocabulary List</h1>
+            
+            {/* Navigation Button */}
+            <div className="navigation-section">
+                <Link to="/play" className="play-button">
+                    Start Quiz
+                </Link>
+            </div>
             
             {/* Add Word Form */}
             <div className="add-word-section">

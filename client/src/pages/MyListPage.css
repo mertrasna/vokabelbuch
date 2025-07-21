@@ -223,6 +223,29 @@
     background-color: #f57c00;
 }
 
+/* Navigation Section */
+.navigation-section {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.play-button {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    display: inline-block;
+}
+
+.play-button:hover {
+    background-color: #45a049;
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 600px) {
     .my-list-page {
