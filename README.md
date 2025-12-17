@@ -1,36 +1,207 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Vokabelbuch 📚
+
+Your personal German vocabulary learning companion. Save words you learn, practice with quizzes, and master German one word at a time.
+
+## Features
+
+- 🔐 **User Authentication** - Secure registration and login
+- 📝 **Vocabulary Management** - Add, view, and organize German words with translations
+- 🎯 **Interactive Quizzes** - Test your knowledge with randomized quizzes
+- 📊 **Progress Tracking** - Monitor learning statistics and review history
+- 🎨 **Beautiful UI** - Modern, responsive design with Tailwind CSS
+
+## Tech Stack
+
+- **Frontend:** Next.js 14, React, TypeScript, Tailwind CSS
+- **Backend:** Next.js API Routes, NextAuth.js
+- **Database:** PostgreSQL with Prisma ORM
+- **UI Components:** shadcn/ui
+- **Deployment:** Vercel
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18+ installed
+- PostgreSQL database (local or cloud)
+
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/yourusername/vokabelbuch.git
+cd vokabelbuch
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Set up environment variables:
+   
+Create a `.env` file in the root directory:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```env
+DATABASE_URL="postgresql://user:password@localhost:5432/vokabelbuch"
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET="your-secret-key-here"
+```
 
-## Learn More
+4. Run database migrations:
+```bash
+npx prisma migrate dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+5. Generate Prisma client:
+```bash
+npx prisma generate
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+6. Start the development server:
+```bash
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+7. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-## Deploy on Vercel
+## Database Setup
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Local PostgreSQL
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+# Install PostgreSQL (Ubuntu/Debian)
+sudo apt install postgresql
+
+# Create database
+sudo -u postgres psql
+CREATE DATABASE vokabelbuch;
+CREATE USER vokabelbuch_user WITH PASSWORD 'your_password';
+GRANT ALL PRIVILEGES ON DATABASE vokabelbuch TO vokabelbuch_user;
+```
+
+### Cloud Database (Recommended for Production)
+
+Use one of these services for easy setup:
+- [Neon](https://neon.tech) - Serverless PostgreSQL
+- [Supabase](https://supabase.com) - Open source Firebase alternative
+- [Railway](https://railway.app) - Simple deployment platform
+
+## Project Structure
+
+```
+vokabelbuch/
+├── app/
+│   ├── api/              # API routes
+│   │   ├── auth/         # NextAuth endpoints
+│   │   ├── register/     # User registration
+│   │   ├── words/        # Word CRUD operations
+│   │   └── quiz/         # Quiz submission
+│   ├── dashboard/        # Main dashboard page
+│   ├── login/            # Login page
+│   ├── quiz/             # Quiz interface
+│   ├── register/         # Registration page
+│   ├── layout.tsx        # Root layout
+│   └── page.tsx          # Homepage
+├── components/
+│   ├── ui/               # shadcn/ui components
+│   ├── navbar.tsx        # Navigation component
+│   └── providers.tsx     # Session provider
+├── lib/
+│   ├── auth.ts           # NextAuth configuration
+│   ├── prisma.ts         # Prisma client
+│   └── utils.ts          # Utility functions
+├── prisma/
+│   └── schema.prisma     # Database schema
+├── types/
+│   └── next-auth.d.ts    # TypeScript definitions
+└── mvp_plan.md           # Project documentation
+```
+
+## Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm start` - Start production server
+- `npm run lint` - Run ESLint
+- `npx prisma studio` - Open Prisma Studio (database GUI)
+- `npx prisma migrate dev` - Create and apply migrations
+
+## Deployment
+
+### Deploy to Vercel (Recommended)
+
+1. Push your code to GitHub
+2. Import project in [Vercel](https://vercel.com)
+3. Add environment variables
+4. Deploy!
+
+Your app will be live at: `https://your-app.vercel.app`
+
+### Connect Custom Domain
+
+1. Add domain in Vercel dashboard
+2. Update DNS records as instructed
+3. Your app will be live at: `https://vokabelbuch.com`
+
+## Environment Variables
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `DATABASE_URL` | PostgreSQL connection string | `postgresql://user:pass@host:5432/db` |
+| `NEXTAUTH_URL` | Application URL | `http://localhost:3000` |
+| `NEXTAUTH_SECRET` | Secret for JWT encryption | Generate with `openssl rand -base64 32` |
+
+## Usage
+
+### Adding Words
+
+1. Login to your account
+2. Navigate to Dashboard
+3. Click "Add New Word"
+4. Fill in German word, English translation, and optional notes
+5. Select difficulty level
+6. Click "Add Word"
+
+### Taking Quizzes
+
+1. Add at least one word to your vocabulary
+2. Navigate to "Quiz" from dashboard
+3. Type the English translation for each German word
+4. Submit your answer
+5. Review results and continue
+
+### Tracking Progress
+
+- View word statistics on dashboard
+- See times reviewed for each word
+- Check quiz results and scores
+- Monitor learning progress over time
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## Future Features
+
+- Spaced repetition algorithm
+- Audio pronunciation
+- Example sentences
+- Word categories and tags
+- Mobile app
+- Community word lists
+- Achievement system
+
+See [mvp_plan.md](mvp_plan.md) for detailed roadmap.
+
+## License
+
+MIT License - feel free to use this project for your own learning!
+
+## Support
+
+For questions or issues, please open an issue on GitHub.
+
+---
+
+**Happy Learning! Viel Erfolg! 🇩🇪**
