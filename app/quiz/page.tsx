@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
-import { Navbar } from "@/components/navbar"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -108,7 +107,6 @@ export default function QuizPage() {
   if (status === "loading" || isLoading) {
     return (
       <div className="min-h-screen">
-        <Navbar />
         <div className="flex items-center justify-center h-[calc(100vh-4rem)]">
           <p>Loading...</p>
         </div>
@@ -123,7 +121,6 @@ export default function QuizPage() {
   if (words.length === 0) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-        <Navbar />
         <main className="container mx-auto px-4 py-8">
           <Card className="max-w-2xl mx-auto">
             <CardContent className="pt-6">
@@ -147,7 +144,6 @@ export default function QuizPage() {
     const percentage = Math.round((score / words.length) * 100)
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-        <Navbar />
         <main className="container mx-auto px-4 py-8">
           <Card className="max-w-2xl mx-auto">
             <CardHeader>
@@ -188,7 +184,6 @@ export default function QuizPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <Navbar />
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-2xl mx-auto">
           <div className="mb-6 flex justify-between items-center">
