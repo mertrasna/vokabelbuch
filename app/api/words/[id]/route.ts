@@ -7,6 +7,7 @@ import { z } from "zod"
 const wordSchema = z.object({
   german: z.string().min(1).optional(),
   english: z.string().min(1).optional(),
+  artikel: z.enum(["DER", "DIE", "DAS"]).optional(),
   notes: z.string().optional(),
   difficulty: z.enum(["EASY", "MEDIUM", "HARD"]).optional(),
 })

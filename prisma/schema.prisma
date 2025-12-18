@@ -66,11 +66,18 @@ enum Difficulty {
   HARD
 }
 
+enum Artikel {
+  DER
+  DIE
+  DAS
+}
+
 model Word {
   id            String       @id @default(cuid())
   userId        String
   german        String
   english       String
+  artikel       Artikel?
   notes         String?
   difficulty    Difficulty?  @default(MEDIUM)
   timesReviewed Int          @default(0)

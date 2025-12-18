@@ -11,6 +11,7 @@ interface Word {
   id: string
   german: string
   english: string
+  artikel?: "DER" | "DIE" | "DAS"
   notes?: string
   difficulty?: "EASY" | "MEDIUM" | "HARD"
   timesReviewed: number
@@ -72,6 +73,7 @@ export default function DashboardPage() {
   const handleAddWord = async (data: {
     german: string
     english: string
+    artikel?: "DER" | "DIE" | "DAS"
     notes?: string
     difficulty: "EASY" | "MEDIUM" | "HARD"
   }) => {
@@ -213,6 +215,11 @@ export default function DashboardPage() {
                             <div className="text-xs uppercase tracking-widest opacity-60 mb-4 font-light">
                               German
                             </div>
+                            {word.artikel && (
+                              <div className="text-lg opacity-80 mb-2 font-light">
+                                {word.artikel.toLowerCase()}
+                              </div>
+                            )}
                             <div className="text-3xl font-light mb-4 tracking-wide">
                               {word.german}
                             </div>

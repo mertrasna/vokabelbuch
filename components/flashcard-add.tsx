@@ -9,6 +9,7 @@ interface FlashcardAddProps {
   onSave: (data: {
     german: string
     english: string
+    artikel?: "DER" | "DIE" | "DAS"
     notes?: string
     difficulty: "EASY" | "MEDIUM" | "HARD"
   }) => Promise<void>
@@ -19,6 +20,7 @@ export function FlashcardAdd({ onSave, onCancel }: FlashcardAddProps) {
   const [isFlipped, setIsFlipped] = useState(false)
   const [german, setGerman] = useState("")
   const [english, setEnglish] = useState("")
+  const [artikel, setArtikel] = useState<"DER" | "DIE" | "DAS" | undefined>(undefined)
   const [notes, setNotes] = useState("")
   const [difficulty, setDifficulty] = useState<"EASY" | "MEDIUM" | "HARD">("MEDIUM")
   const [isSaving, setIsSaving] = useState(false)
@@ -34,10 +36,11 @@ export function FlashcardAdd({ onSave, onCancel }: FlashcardAddProps) {
     
     setIsSaving(true)
     try {
-      await onSave({ german, english, notes: notes || undefined, difficulty })
+      await onSave({ german, english, artikel, notes: notes || undefined, difficulty })
       // Reset form
       setGerman("")
       setEnglish("")
+      setArtikel(undefined)
       setNotes("")
       setDifficulty("MEDIUM")
       setIsFlipped(false)
@@ -64,7 +67,7 @@ export function FlashcardAdd({ onSave, onCancel }: FlashcardAddProps) {
         </button>
 
         {/* Flashcard */}
-        <div className={`flip-card ${isFlipped ? 'flipped' : ''}`} style={{ height: '520px' }}>
+        <div className={`flip-card ${isFlipped ? 'flipped' : ''}`} style={{ height: '600px' }}>
           <div className="flip-card-inner">
             {/* Front Side - German Word */}
             <div className="flip-card-front elegant-front shadow-2xl flex flex-col items-center justify-center p-12 text-white border border-gray-700">
@@ -101,27 +104,69 @@ export function FlashcardAdd({ onSave, onCancel }: FlashcardAddProps) {
             </div>
 
             {/* Back Side - English Translation */}
-            <div className="flip-card-back elegant-back shadow-2xl p-12 border border-gray-200">
-              <div className="space-y-6 h-full flex flex-col">
-                <div className="text-center border-b border-gray-200 pb-6">
+            <div className="flip-card-back elegant-back shadow-2xl p-8 border border-gray-200 overflow-y-auto">
+              <div className="space-y-4 h-full flex flex-col">
+                <div className="text-center border-b border-gray-200 pb-4">
                   <div className="text-xs uppercase tracking-widest text-gray-500 mb-2 font-light">
                     Translates to
                   </div>
-                  <div className="text-4xl font-light text-gray-900">
+                  <div className="text-3xl font-light text-gray-900">
                     {german}
                   </div>
                 </div>
 
-                <div className="space-y-5 flex-1">
+                <div className="space-y-4 flex-1">
                   <div>
                     <Label className="text-gray-700 text-xs uppercase tracking-wider mb-2 block font-light">English Translation</Label>
                     <Input
                       value={english}
                       onChange={(e) => setEnglish(e.target.value)}
                       placeholder="dog, house, happy..."
-                      className="text-2xl font-light bg-white border-gray-300 text-gray-900 placeholder:text-gray-400 h-14 focus:border-gray-500"
+                      className="text-xl font-light bg-white border-gray-300 text-gray-900 placeholder:text-gray-400 h-12 focus:border-gray-500"
                       autoFocus={isFlipped}
                     />
+                  </div>
+
+                  <div>
+                    <Label className="text-gray-700 text-xs uppercase tracking-wider mb-2 block font-light">Artikel (Optional)</Label>
+                    <div className="flex gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setArtikel(artikel === "DER" ? undefined : "DER")}
+                        className={`flex-1 py-2.5 px-3 rounded-lg border-2 transition-all font-light ${
+                          artikel === "DER"
+                            ? "border-blue-500 bg-blue-50 text-blue-700"
+                            : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
+                        }`}
+                      >
+                        <div className="text-sm font-normal">der</div>
+                        <div className="text-xs text-gray-500 mt-0.5">masculine</div>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setArtikel(artikel === "DIE" ? undefined : "DIE")}
+                        className={`flex-1 py-2.5 px-3 rounded-lg border-2 transition-all font-light ${
+                          artikel === "DIE"
+                            ? "border-pink-500 bg-pink-50 text-pink-700"
+                            : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
+                        }`}
+                      >
+                        <div className="text-sm font-normal">die</div>
+                        <div className="text-xs text-gray-500 mt-0.5">feminine</div>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setArtikel(artikel === "DAS" ? undefined : "DAS")}
+                        className={`flex-1 py-2.5 px-3 rounded-lg border-2 transition-all font-light ${
+                          artikel === "DAS"
+                            ? "border-green-500 bg-green-50 text-green-700"
+                            : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
+                        }`}
+                      >
+                        <div className="text-sm font-normal">das</div>
+                        <div className="text-xs text-gray-500 mt-0.5">neuter</div>
+                      </button>
+                    </div>
                   </div>
 
                   <div>
@@ -129,68 +174,66 @@ export function FlashcardAdd({ onSave, onCancel }: FlashcardAddProps) {
                     <Input
                       value={notes}
                       onChange={(e) => setNotes(e.target.value)}
-                      placeholder="Where you learned it, example sentence..."
-                      className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-400 font-light focus:border-gray-500"
+                      placeholder="Where you learned it..."
+                      className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-400 font-light focus:border-gray-500 h-10 text-sm"
                     />
                   </div>
 
                   <div>
-                    <Label className="text-gray-700 text-xs uppercase tracking-wider mb-3 block font-light">Difficulty Level</Label>
+                    <Label className="text-gray-700 text-xs uppercase tracking-wider mb-2 block font-light">Difficulty Level</Label>
                     <div className="flex gap-2">
                       <button
                         type="button"
                         onClick={() => setDifficulty("EASY")}
-                        className={`flex-1 py-3 px-4 rounded-lg border-2 transition-all font-light ${
+                        className={`flex-1 py-2.5 px-3 rounded-lg border-2 transition-all font-light ${
                           difficulty === "EASY"
                             ? "border-green-500 bg-green-50 text-green-700"
                             : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
                         }`}
                       >
-                        <div className="text-lg mb-1">🟢</div>
-                        <div className="text-sm">Easy</div>
+                        <div className="text-base mb-0.5">🟢</div>
+                        <div className="text-xs">Easy</div>
                       </button>
                       <button
                         type="button"
                         onClick={() => setDifficulty("MEDIUM")}
-                        className={`flex-1 py-3 px-4 rounded-lg border-2 transition-all font-light ${
+                        className={`flex-1 py-2.5 px-3 rounded-lg border-2 transition-all font-light ${
                           difficulty === "MEDIUM"
                             ? "border-yellow-500 bg-yellow-50 text-yellow-700"
                             : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
                         }`}
                       >
-                        <div className="text-lg mb-1">🟡</div>
-                        <div className="text-sm">Medium</div>
+                        <div className="text-base mb-0.5">🟡</div>
+                        <div className="text-xs">Medium</div>
                       </button>
                       <button
                         type="button"
                         onClick={() => setDifficulty("HARD")}
-                        className={`flex-1 py-3 px-4 rounded-lg border-2 transition-all font-light ${
+                        className={`flex-1 py-2.5 px-3 rounded-lg border-2 transition-all font-light ${
                           difficulty === "HARD"
                             ? "border-red-500 bg-red-50 text-red-700"
                             : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
                         }`}
                       >
-                        <div className="text-lg mb-1">🔴</div>
-                        <div className="text-sm">Hard</div>
+                        <div className="text-base mb-0.5">🔴</div>
+                        <div className="text-xs">Hard</div>
                       </button>
                     </div>
                   </div>
                 </div>
 
-                <div className="flex gap-4 pt-4 border-t border-gray-200">
+                <div className="flex gap-3 pt-3 border-t border-gray-200 mt-auto">
                   <Button
                     onClick={handleBack}
                     variant="outline"
-                    size="lg"
-                    className="flex-1 border-gray-300 text-gray-700 hover:bg-gray-50 font-light"
+                    className="flex-1 border-gray-300 text-gray-700 hover:bg-gray-50 font-light h-11"
                   >
                     ← Back
                   </Button>
                   <Button
                     onClick={handleSave}
                     disabled={!english.trim() || isSaving}
-                    size="lg"
-                    className="flex-1 bg-gray-900 text-white hover:bg-gray-800 shadow-lg font-light"
+                    className="flex-1 bg-gray-900 text-white hover:bg-gray-800 shadow-lg font-light h-11"
                   >
                     {isSaving ? "Saving..." : "Save Word ✓"}
                   </Button>
