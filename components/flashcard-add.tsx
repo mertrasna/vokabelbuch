@@ -4,7 +4,6 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 interface FlashcardAddProps {
   onSave: (data: {
@@ -65,19 +64,19 @@ export function FlashcardAdd({ onSave, onCancel }: FlashcardAddProps) {
         </button>
 
         {/* Flashcard */}
-        <div className={`flip-card ${isFlipped ? 'flipped' : ''}`} style={{ height: '500px' }}>
+        <div className={`flip-card ${isFlipped ? 'flipped' : ''}`} style={{ height: '520px' }}>
           <div className="flip-card-inner">
             {/* Front Side - German Word */}
-            <div className="flip-card-front bg-gradient-to-br from-red-500 to-red-600 shadow-2xl flex flex-col items-center justify-center p-12 text-white">
+            <div className="flip-card-front elegant-front shadow-2xl flex flex-col items-center justify-center p-12 text-white border border-gray-700">
               <div className="text-center space-y-8 w-full">
-                <div className="text-sm uppercase tracking-wider opacity-80">
+                <div className="text-xs uppercase tracking-widest text-gray-400 font-light">
                   German Word
                 </div>
                 <Input
                   value={german}
                   onChange={(e) => setGerman(e.target.value)}
                   placeholder="Type the German word..."
-                  className="text-center text-5xl font-bold bg-white/20 border-white/30 text-white placeholder:text-white/50 h-20"
+                  className="text-center text-5xl font-light bg-white/10 border-gray-600 text-white placeholder:text-gray-500 h-20 tracking-wide"
                   autoFocus
                   onKeyPress={(e) => {
                     if (e.key === 'Enter' && german.trim()) {
@@ -90,7 +89,7 @@ export function FlashcardAdd({ onSave, onCancel }: FlashcardAddProps) {
                     onClick={handleFlip}
                     disabled={!german.trim()}
                     size="lg"
-                    className="bg-white text-red-600 hover:bg-white/90 px-8 shadow-lg"
+                    className="bg-white text-gray-900 hover:bg-gray-100 px-8 shadow-lg font-light"
                   >
                     Flip Card
                     <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -102,60 +101,88 @@ export function FlashcardAdd({ onSave, onCancel }: FlashcardAddProps) {
             </div>
 
             {/* Back Side - English Translation */}
-            <div className="flip-card-back bg-gradient-to-br from-yellow-500 to-yellow-600 shadow-2xl p-12">
+            <div className="flip-card-back elegant-back shadow-2xl p-12 border border-gray-200">
               <div className="space-y-6 h-full flex flex-col">
-                <div className="text-center">
-                  <div className="text-sm uppercase tracking-wider text-white/80 mb-2">
+                <div className="text-center border-b border-gray-200 pb-6">
+                  <div className="text-xs uppercase tracking-widest text-gray-500 mb-2 font-light">
                     Translates to
                   </div>
-                  <div className="text-4xl font-bold text-white mb-8">
+                  <div className="text-4xl font-light text-gray-900">
                     {german}
                   </div>
                 </div>
 
-                <div className="space-y-4 flex-1">
+                <div className="space-y-5 flex-1">
                   <div>
-                    <Label className="text-white text-sm mb-2 block">English Translation</Label>
+                    <Label className="text-gray-700 text-xs uppercase tracking-wider mb-2 block font-light">English Translation</Label>
                     <Input
                       value={english}
                       onChange={(e) => setEnglish(e.target.value)}
                       placeholder="dog, house, happy..."
-                      className="text-2xl font-semibold bg-white/20 border-white/30 text-white placeholder:text-white/50 h-14"
+                      className="text-2xl font-light bg-white border-gray-300 text-gray-900 placeholder:text-gray-400 h-14 focus:border-gray-500"
                       autoFocus={isFlipped}
                     />
                   </div>
 
                   <div>
-                    <Label className="text-white text-sm mb-2 block">Notes (Optional)</Label>
+                    <Label className="text-gray-700 text-xs uppercase tracking-wider mb-2 block font-light">Notes (Optional)</Label>
                     <Input
                       value={notes}
                       onChange={(e) => setNotes(e.target.value)}
                       placeholder="Where you learned it, example sentence..."
-                      className="bg-white/20 border-white/30 text-white placeholder:text-white/40"
+                      className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-400 font-light focus:border-gray-500"
                     />
                   </div>
 
                   <div>
-                    <Label className="text-white text-sm mb-2 block">Difficulty</Label>
-                    <Select value={difficulty} onValueChange={(value: any) => setDifficulty(value)}>
-                      <SelectTrigger className="bg-white/20 border-white/30 text-white">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="EASY">🟢 Easy</SelectItem>
-                        <SelectItem value="MEDIUM">🟡 Medium</SelectItem>
-                        <SelectItem value="HARD">🔴 Hard</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <Label className="text-gray-700 text-xs uppercase tracking-wider mb-3 block font-light">Difficulty Level</Label>
+                    <div className="flex gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setDifficulty("EASY")}
+                        className={`flex-1 py-3 px-4 rounded-lg border-2 transition-all font-light ${
+                          difficulty === "EASY"
+                            ? "border-green-500 bg-green-50 text-green-700"
+                            : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
+                        }`}
+                      >
+                        <div className="text-lg mb-1">🟢</div>
+                        <div className="text-sm">Easy</div>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setDifficulty("MEDIUM")}
+                        className={`flex-1 py-3 px-4 rounded-lg border-2 transition-all font-light ${
+                          difficulty === "MEDIUM"
+                            ? "border-yellow-500 bg-yellow-50 text-yellow-700"
+                            : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
+                        }`}
+                      >
+                        <div className="text-lg mb-1">🟡</div>
+                        <div className="text-sm">Medium</div>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setDifficulty("HARD")}
+                        className={`flex-1 py-3 px-4 rounded-lg border-2 transition-all font-light ${
+                          difficulty === "HARD"
+                            ? "border-red-500 bg-red-50 text-red-700"
+                            : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
+                        }`}
+                      >
+                        <div className="text-lg mb-1">🔴</div>
+                        <div className="text-sm">Hard</div>
+                      </button>
+                    </div>
                   </div>
                 </div>
 
-                <div className="flex gap-4">
+                <div className="flex gap-4 pt-4 border-t border-gray-200">
                   <Button
                     onClick={handleBack}
                     variant="outline"
                     size="lg"
-                    className="flex-1 bg-white/20 border-white/30 text-white hover:bg-white/30"
+                    className="flex-1 border-gray-300 text-gray-700 hover:bg-gray-50 font-light"
                   >
                     ← Back
                   </Button>
@@ -163,7 +190,7 @@ export function FlashcardAdd({ onSave, onCancel }: FlashcardAddProps) {
                     onClick={handleSave}
                     disabled={!english.trim() || isSaving}
                     size="lg"
-                    className="flex-1 bg-white text-yellow-600 hover:bg-white/90 shadow-lg"
+                    className="flex-1 bg-gray-900 text-white hover:bg-gray-800 shadow-lg font-light"
                   >
                     {isSaving ? "Saving..." : "Save Word ✓"}
                   </Button>

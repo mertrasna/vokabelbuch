@@ -137,19 +137,19 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-red-50/20 to-yellow-50/20">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-50">
       <main className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-12 text-center">
-          <h1 className="text-5xl font-bold mb-4 gradient-text">
+          <h1 className="text-5xl font-light mb-4 text-gray-900 tracking-wide">
             My Vocabulary
           </h1>
-          <p className="text-xl text-gray-600">
+          <p className="text-lg text-gray-600 font-light">
             {words.length === 0 ? (
-              "Your German learning journey starts here! 🌱"
+              "Your German learning journey starts here"
             ) : (
               <>
-                You've collected <span className="font-bold text-primary">{words.length}</span> German word{words.length !== 1 ? "s" : ""}! 🎉
+                You've collected <span className="font-medium text-gray-900">{words.length}</span> German word{words.length !== 1 ? "s" : ""}
               </>
             )}
           </p>
@@ -160,9 +160,9 @@ export default function DashboardPage() {
           <Button
             onClick={() => setShowAddCard(true)}
             size="lg"
-            className="text-lg px-8 py-6 shadow-xl hover:shadow-2xl transition-all hover:scale-105"
+            className="text-base px-8 py-6 shadow-lg hover:shadow-xl transition-all hover:scale-105 bg-gray-900 hover:bg-gray-800 font-light tracking-wide"
           >
-            <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
             </svg>
             Add New Word
@@ -172,14 +172,14 @@ export default function DashboardPage() {
         {/* Words Grid */}
         {words.length === 0 ? (
           <div className="max-w-2xl mx-auto">
-            <div className="bg-white rounded-3xl shadow-xl p-12 text-center border-4 border-dashed border-gray-200">
-              <div className="text-6xl mb-6">📚</div>
-              <h3 className="text-2xl font-bold mb-3">No words yet!</h3>
-              <p className="text-gray-600 mb-6">
+            <div className="bg-white rounded-2xl shadow-lg p-12 text-center border border-gray-200">
+              <div className="text-6xl mb-6 opacity-20">📚</div>
+              <h3 className="text-2xl font-light mb-3 text-gray-900">No words yet</h3>
+              <p className="text-gray-600 mb-6 font-light">
                 Click "Add New Word" to start building your German vocabulary collection.
               </p>
-              <p className="text-sm text-gray-500">
-                💡 Tip: Try adding words you encounter in daily life, songs, or books!
+              <p className="text-sm text-gray-500 font-light">
+                Tip: Add words you encounter in daily life, songs, or books
               </p>
             </div>
           </div>
@@ -203,56 +203,56 @@ export default function DashboardPage() {
                     >
                       <div className="flip-card-inner">
                         {/* Front - German Word */}
-                        <div className={`flip-card-front ${gradientClass} shadow-xl flex flex-col items-center justify-center p-6 text-white relative overflow-hidden`}>
+                        <div className={`flip-card-front ${gradientClass} shadow-lg flex flex-col items-center justify-center p-6 text-white relative overflow-hidden border border-gray-700`}>
                           <div className="absolute top-4 right-4">
                             {word.difficulty && (
-                              <span className="text-2xl">{difficultyEmoji[word.difficulty]}</span>
+                              <span className="text-xl">{difficultyEmoji[word.difficulty]}</span>
                             )}
                           </div>
                           <div className="text-center">
-                            <div className="text-sm uppercase tracking-wider opacity-80 mb-4">
+                            <div className="text-xs uppercase tracking-widest opacity-60 mb-4 font-light">
                               German
                             </div>
-                            <div className="text-4xl font-bold mb-4">
+                            <div className="text-3xl font-light mb-4 tracking-wide">
                               {word.german}
                             </div>
-                            <div className="text-sm opacity-80">
+                            <div className="text-xs opacity-50 font-light">
                               Click to reveal →
                             </div>
                           </div>
-                          <div className="absolute bottom-4 left-4 text-xs opacity-60">
-                            Reviewed {word.timesReviewed}x
+                          <div className="absolute bottom-4 left-4 text-xs opacity-40 font-light">
+                            {word.timesReviewed}x reviewed
                           </div>
                         </div>
 
                         {/* Back - English Translation */}
-                        <div className="flip-card-back bg-white shadow-xl p-6 flex flex-col justify-between border-4 border-gray-100">
+                        <div className="flip-card-back bg-white shadow-lg p-6 flex flex-col justify-between border border-gray-200">
                           <div>
-                            <div className="text-sm uppercase tracking-wider text-gray-500 mb-2">
+                            <div className="text-xs uppercase tracking-widest text-gray-500 mb-2 font-light">
                               English
                             </div>
-                            <div className="text-3xl font-bold text-gray-800 mb-4">
+                            <div className="text-3xl font-light text-gray-900 mb-4">
                               {word.english}
                             </div>
                             {word.notes && (
-                              <div className="bg-yellow-50 rounded-lg p-3 mb-4">
-                                <div className="text-xs text-gray-600 mb-1">Notes:</div>
-                                <div className="text-sm text-gray-700">{word.notes}</div>
+                              <div className="bg-gray-50 rounded-lg p-3 mb-4 border border-gray-100">
+                                <div className="text-xs text-gray-500 mb-1 uppercase tracking-wider font-light">Notes</div>
+                                <div className="text-sm text-gray-700 font-light">{word.notes}</div>
                               </div>
                             )}
                           </div>
-                          <div className="flex justify-between items-center">
+                          <div className="flex justify-between items-center pt-4 border-t border-gray-100">
                             <button
                               onClick={(e) => {
                                 e.stopPropagation()
                                 handleDeleteWord(word.id)
                               }}
-                              className="text-red-500 hover:text-red-700 text-sm font-medium transition-colors"
+                              className="text-gray-500 hover:text-red-600 text-xs font-light transition-colors uppercase tracking-wider"
                             >
                               Delete
                             </button>
-                            <div className="text-xs text-gray-500">
-                              Click to flip back
+                            <div className="text-xs text-gray-400 font-light">
+                              Click to flip
                             </div>
                           </div>
                         </div>
@@ -268,9 +268,9 @@ export default function DashboardPage() {
               <Button
                 size="lg"
                 onClick={() => router.push("/quiz")}
-                className="text-lg px-12 py-6 shadow-xl hover:shadow-2xl transition-all bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700"
+                className="text-base px-12 py-6 shadow-lg hover:shadow-xl transition-all bg-gray-900 hover:bg-gray-800 font-light tracking-wide"
               >
-                <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 Start Quiz with {words.length} Word{words.length !== 1 ? 's' : ''}

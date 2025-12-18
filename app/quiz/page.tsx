@@ -120,16 +120,16 @@ export default function QuizPage() {
 
   if (words.length === 0) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
         <main className="container mx-auto px-4 py-8">
-          <Card className="max-w-2xl mx-auto">
+          <Card className="max-w-2xl mx-auto shadow-md">
             <CardContent className="pt-6">
               <div className="text-center py-12">
-                <h3 className="text-lg font-semibold mb-2">No words to quiz</h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-4">
+                <h3 className="text-lg font-light mb-2 text-gray-900">No words to quiz</h3>
+                <p className="text-gray-600 mb-4 font-light">
                   Add some words to your vocabulary first!
                 </p>
-                <Button onClick={() => router.push("/dashboard")}>
+                <Button onClick={() => router.push("/dashboard")} className="bg-gray-900 hover:bg-gray-800 font-light tracking-wide">
                   Go to Dashboard
                 </Button>
               </div>
@@ -143,23 +143,23 @@ export default function QuizPage() {
   if (quizFinished) {
     const percentage = Math.round((score / words.length) * 100)
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
         <main className="container mx-auto px-4 py-8">
-          <Card className="max-w-2xl mx-auto">
+          <Card className="max-w-2xl mx-auto shadow-md">
             <CardHeader>
-              <CardTitle className="text-center text-3xl">Quiz Complete! 🎉</CardTitle>
+              <CardTitle className="text-center text-3xl font-light text-gray-900">Quiz Complete! 🎉</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-center py-8">
                 <div className="mb-6">
-                  <div className="text-6xl font-bold text-primary mb-2">
+                  <div className="text-6xl font-light text-gray-900 mb-2">
                     {score}/{words.length}
                   </div>
-                  <p className="text-xl text-gray-600 dark:text-gray-400">
+                  <p className="text-xl text-gray-600 font-light">
                     {percentage}% correct
                   </p>
                 </div>
-                <p className="text-lg mb-8">
+                <p className="text-lg mb-8 font-light">
                   {percentage >= 80
                     ? "Excellent work! Keep it up! 🌟"
                     : percentage >= 60
@@ -167,8 +167,8 @@ export default function QuizPage() {
                     : "Keep studying, you'll get better! 💪"}
                 </p>
                 <div className="space-x-4">
-                  <Button onClick={restartQuiz}>Try Again</Button>
-                  <Button variant="outline" onClick={() => router.push("/dashboard")}>
+                  <Button onClick={restartQuiz} className="bg-gray-900 hover:bg-gray-800 font-light tracking-wide">Try Again</Button>
+                  <Button variant="outline" onClick={() => router.push("/dashboard")} className="border-gray-300 hover:bg-gray-50 font-light tracking-wide">
                     Back to Dashboard
                   </Button>
                 </div>
@@ -183,24 +183,24 @@ export default function QuizPage() {
   const currentWord = words[currentIndex]
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-2xl mx-auto">
           <div className="mb-6 flex justify-between items-center">
-            <Badge variant="outline" className="text-lg">
+            <Badge variant="outline" className="text-lg border-gray-300 text-gray-700 font-light">
               Question {currentIndex + 1} of {words.length}
             </Badge>
-            <div className="text-lg font-semibold">
+            <div className="text-lg font-light text-gray-900">
               Score: {score}/{words.length}
             </div>
           </div>
 
-          <Card>
+          <Card className="shadow-md">
             <CardHeader>
-              <CardTitle className="text-center text-4xl mb-2">
+              <CardTitle className="text-center text-4xl mb-2 font-light text-gray-900">
                 {currentWord.german}
               </CardTitle>
-              <CardDescription className="text-center text-lg">
+              <CardDescription className="text-center text-lg font-light">
                 What does this word mean in English?
               </CardDescription>
             </CardHeader>
@@ -217,13 +217,13 @@ export default function QuizPage() {
                         submitAnswer()
                       }
                     }}
-                    className="text-lg"
+                    className="text-lg font-light"
                     autoFocus
                   />
                   <Button
                     onClick={submitAnswer}
                     disabled={!answer.trim()}
-                    className="w-full"
+                    className="w-full bg-gray-900 hover:bg-gray-800 font-light tracking-wide"
                     size="lg"
                   >
                     Submit Answer
@@ -232,26 +232,26 @@ export default function QuizPage() {
               ) : (
                 <div className="space-y-4">
                   <div
-                    className={`p-4 rounded-lg text-center text-lg font-semibold ${
+                    className={`p-4 rounded-lg text-center text-lg font-light ${
                       isCorrect
-                        ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100"
-                        : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100"
+                        ? "bg-gray-800 text-white"
+                        : "bg-gray-200 text-gray-900"
                     }`}
                   >
                     {isCorrect ? "✓ Correct!" : "✗ Incorrect"}
                   </div>
                   {!isCorrect && (
                     <div className="text-center">
-                      <p className="text-gray-600 dark:text-gray-400">
+                      <p className="text-gray-600 font-light">
                         The correct answer is:
                       </p>
-                      <p className="text-2xl font-bold mt-2">{currentWord.english}</p>
-                      <p className="text-sm text-gray-500 mt-2">
+                      <p className="text-2xl font-light mt-2 text-gray-900">{currentWord.english}</p>
+                      <p className="text-sm text-gray-500 mt-2 font-light">
                         Your answer: {answer}
                       </p>
                     </div>
                   )}
-                  <Button onClick={nextQuestion} className="w-full" size="lg">
+                  <Button onClick={nextQuestion} className="w-full bg-gray-900 hover:bg-gray-800 font-light tracking-wide" size="lg">
                     {currentIndex + 1 >= words.length ? "Finish Quiz" : "Next Question"}
                   </Button>
                 </div>
