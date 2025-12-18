@@ -49,7 +49,7 @@ export default function RegisterPage() {
   return (
     <div className="flex min-h-screen">
       {/* Left side - Image/Brand */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-yellow-500 via-yellow-600 to-red-600 p-12 flex-col justify-between relative overflow-hidden">
+      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-gray-800 via-gray-700 to-gray-600 p-12 flex-col justify-between relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRjMC0yLjIxLTEuNzktNC00LTRzLTQgMS43OS00IDQgMS43OSA0IDQgNCA0LTEuNzkgNC00em0wLTEwYzAtMi4yMS0xLjc5LTQtNC00cy00IDEuNzktNCA0IDEuNzkgNCA0IDQgNC0xLjc5IDQtNHptMC0xMGMwLTIuMjEtMS43OS00LTQtNHMtNCAxLjc5LTQgNCAxLjc5IDQgNCA0IDQtMS43OSA0LTR6TTQ2IDM0YzAtMi4yMS0xLjc5LTQtNC00cy00IDEuNzktNCA0IDEuNzkgNCA0IDQgNC0xLjc5IDQtNHptMC0xMGMwLTIuMjEtMS43OS00LTQtNHMtNCAxLjc5LTQgNCAxLjc5IDQgNCA0IDQtMS43OSA0LTR6bTAtMTBjMC0yLjIxLTEuNzktNC00LTRzLTQgMS43OS00IDQgMS43OSA0IDQgNCA0LTEuNzkgNC00ek0yNiAzNGMwLTIuMjEtMS43OS00LTQtNHMtNCAxLjc5LTQgNCAxLjc5IDQgNCA0IDQtMS43OSA0LTR6bTAtMTBjMC0yLjIxLTEuNzktNC00LTRzLTQgMS43OS00IDQgMS43OSA0IDQgNCA0LTEuNzkgNC00em0wLTEwYzAtMi4yMS0xLjc5LTQtNC00cy00IDEuNzktNCA0IDEuNzkgNCA0IDQgNC0xLjc5IDQtNHoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-30" />
         <div className="relative z-10">
           <Link href="/" className="flex items-center gap-2 text-white">
@@ -57,13 +57,13 @@ export default function RegisterPage() {
             <span className="text-2xl font-bold">Vokabelbuch</span>
           </Link>
         </div>
-        <div className="relative z-10 space-y-6">
-          <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight">
-            Start your German learning adventure today
-          </h1>
-          <p className="text-xl text-white/90">
-            Join thousands of learners mastering German vocabulary every day.
-          </p>
+          <div className="relative z-10 space-y-6">
+            <h1 className="text-4xl md:text-5xl font-light text-white leading-tight tracking-wide">
+              Start your German learning adventure today
+            </h1>
+            <p className="text-xl text-white/90 font-light">
+              Join thousands of learners mastering German vocabulary every day.
+            </p>
           <div className="flex flex-col gap-4 text-white/90">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
@@ -98,14 +98,14 @@ export default function RegisterPage() {
         <Card className="w-full max-w-md shadow-xl border-2">
           <CardHeader className="space-y-2 pb-6">
             <div className="flex justify-center mb-4">
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-yellow-500 to-yellow-600 flex items-center justify-center shadow-lg">
+              <div className="w-16 h-16 rounded-2xl bg-gray-900 flex items-center justify-center shadow-lg">
                 <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
                 </svg>
               </div>
             </div>
-            <CardTitle className="text-3xl font-bold text-center">Create account</CardTitle>
-            <CardDescription className="text-center text-base">
+            <CardTitle className="text-3xl font-light text-center tracking-wide text-gray-900">Create account</CardTitle>
+            <CardDescription className="text-center text-base font-light">
               Start learning German for free
             </CardDescription>
           </CardHeader>
@@ -169,7 +169,7 @@ export default function RegisterPage() {
             <CardFooter className="flex flex-col space-y-4 pt-2">
               <Button 
                 type="submit" 
-                className="w-full h-11 text-base font-semibold shadow-lg hover:shadow-xl transition-all" 
+                className="w-full h-11 text-base font-light tracking-wide shadow-lg hover:shadow-xl transition-all bg-gray-900 hover:bg-gray-800" 
                 disabled={isLoading}
               >
                 {isLoading ? (
@@ -184,9 +184,9 @@ export default function RegisterPage() {
                   "Create Account"
                 )}
               </Button>
-              <p className="text-sm text-center text-gray-600">
+              <p className="text-sm text-center text-gray-600 font-light">
                 Already have an account?{" "}
-                <Link href="/login" className="text-primary font-semibold hover:underline">
+                <Link href="/login" className="text-gray-900 font-normal hover:underline">
                   Sign in
                 </Link>
               </p>
